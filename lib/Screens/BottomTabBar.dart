@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:music_app/Screens/HomeScreen.dart';
 
 import '../Constent/Colors.dart';
+import 'CategoryScreen.dart';
+import 'FavoriteScreen.dart';
 
 class BottomTabBar extends StatefulWidget {
   const BottomTabBar({super.key});
@@ -14,9 +16,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
 
   int _selectedIndex = 0;
   static const List _widgetOptions = [
-   HomeScreen(),
-    Text('Search Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
-    Text('Profile Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    HomeScreen(),
+    FavoriteScreen(),
+    CategoryScreen(),
     Text('Profile Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
   ];
 

@@ -241,7 +241,7 @@ class Wid_Con {
 
   static NavigationTo(var NavigatClass){
     return Get.to(NavigatClass,
-    duration: Duration(milliseconds: 700),
+    duration: Duration(milliseconds: 1000),
     transition: Transition.native,);
 }
 

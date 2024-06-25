@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:linear_timer/linear_timer.dart';
 import 'package:music_app/Constent/Colors.dart';
@@ -174,9 +175,9 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin{
                       child: GridView.builder(
                         itemCount: 8,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10
+                            crossAxisCount: 2,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20
                         ),
                         itemBuilder: (context, index) {
                           return Stack(
@@ -186,37 +187,50 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin{
                               height: double.infinity,
                               width: double.infinity,
                               decoration: BoxDecoration(
+                                border: Border.all(width: 1.5,color: white.withOpacity(0.2)),
                                 borderRadius: BorderRadius.circular(20),
                             color: white.withOpacity(.2),
-
+image: DecorationImage(
+  fit: BoxFit.cover,
+    image: NetworkImage('https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'))
                               ),
                               child: Column(
                                 children: [
-                                  Expanded(child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 10),
-                                    child: Image.asset('assets/images/Tent.png'),
-                                  )),
-                                  Container(
-                                    height: 35,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20)),
-                                        color: white.withOpacity(.2)),
-                                    child: Center(
-                                      child: Text(
-                                        'Nature',
-                                        style: Wid_Con.Text_Style(
-                                            color: white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: [
-                                              const Shadow(
-                                                blurRadius: 30.0, // shadow blur
-                                                color: Colors.white, // shadow color
-                                                offset:
-                                                Offset(0.0, 0.0), // how much shadow will be shown
-                                              ),
-                                            ]),
+                                  Spacer(),
+                                  // Expanded(child: Padding(
+                                  //   padding: const EdgeInsets.only(bottom: 10),
+                                  //   child: Image.network('https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',fit: BoxFit.cover,),
+                                  // )),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+                                    child: BackdropFilter(
+                                      filter:
+                                      ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                                      child: Container(
+                                        height: 40,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.only(bottomRight: Radius.circular(20),bottomLeft: Radius.circular(20)),
+                                            color: white.withOpacity(.1)
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Nature',
+                                            style: Wid_Con.Text_Style(
+                                                color: white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                shadows: [
+                                                  const Shadow(
+                                                    blurRadius: 30.0, // shadow blur
+                                                    color: Colors.white, // shadow color
+                                                    offset:
+                                                    Offset(0.0, 0.0), // how much shadow will be shown
+                                                  ),
+                                                ]),
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   )
@@ -225,11 +239,29 @@ class _HomeScreenState extends State<HomeScreen>  with TickerProviderStateMixin{
                             ),
                               Align(
                                 alignment: Alignment.topRight,
-                                child: IconButton(onPressed: (){
-                                  setState(() {
-                                    isFavorite = !isFavorite;
-                                  });
-                                }, icon: Image(image: AssetImage(isFavorite==true?'assets/images/Favorite.png':'assets/images/Unfavorite.png'),height: 20,)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: BackdropFilter(
+                                      filter:
+                                      ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: white.withOpacity(.3),width: 1.5),
+                                          borderRadius: BorderRadius.circular(8)
+                                        ),
+                                        child: IconButton(onPressed: (){
+                                          setState(() {
+                                            isFavorite = !isFavorite;
+                                          });
+                                        }, icon: Image(image: AssetImage(isFavorite==true?'assets/images/Favorite.png':'assets/images/Unfavorite.png'),height: 20,)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           );
@@ -279,13 +311,9 @@ color: Color(0xFF403d59),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 color: white.withOpacity(.5),
+                                image: DecorationImage(image: NetworkImage('https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),fit: BoxFit.cover,)
                               ),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Image(image: AssetImage('assets/images/Tent.png'),),
-                                ),
-                              ),
+
                             ),
                           ),
                           Padding(
