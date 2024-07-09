@@ -61,14 +61,14 @@ class _View_CategoryState extends State<View_Category>
                       context: context,
                       removeTop: true,
                       child: Padding(
-                        padding: EdgeInsets.only(left: 20, right: 20),
+                        padding: const EdgeInsets.only(left: 20, right: 20),
                         child: GridView.builder(
                           itemCount: 8,
                           gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20),
                           itemBuilder: (context, index) {
                             return Stack(
                               alignment: Alignment.topCenter,
@@ -79,21 +79,23 @@ class _View_CategoryState extends State<View_Category>
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: white.withOpacity(.2),
-                                    border: Border.all(width: 1.5,color: white.withOpacity(0.2)),
-                                    image: DecorationImage(
+                                    border: Border.all(
+                                        width: 1.5,
+                                        color: white.withOpacity(0.2)),
+                                    image: const DecorationImage(
                                         fit: BoxFit.cover,
                                         image: NetworkImage(
                                             'https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')),
                                   ),
                                   child: Column(
                                     children: [
-                                      Spacer(),
+                                      const Spacer(),
                                       // Expanded(child: Padding(
                                       //   padding: const EdgeInsets.only(bottom: 10),
                                       //   child: Image.network('https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',fit: BoxFit.cover,),
                                       // )),
                                       ClipRRect(
-                                          borderRadius: BorderRadius.only(
+                                          borderRadius: const BorderRadius.only(
                                               bottomLeft: Radius.circular(20),
                                               bottomRight: Radius.circular(20)),
                                           child: BackdropFilter(
@@ -104,14 +106,15 @@ class _View_CategoryState extends State<View_Category>
                                                 width: double.infinity,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.only(
-                                                        bottomRight: Radius
-                                                            .circular(20),
-                                                        bottomLeft:
-                                                        Radius.circular(
-                                                            20)),
+                                                        const BorderRadius.only(
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    20),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    20)),
                                                     color:
-                                                    white.withOpacity(.1)),
+                                                        white.withOpacity(.1)),
                                                 child: Center(
                                                   child: Text(
                                                     'Nature',
@@ -119,11 +122,11 @@ class _View_CategoryState extends State<View_Category>
                                                         color: white,
                                                         fontSize: 14,
                                                         fontWeight:
-                                                        FontWeight.bold,
+                                                            FontWeight.bold,
                                                         shadows: [
                                                           const Shadow(
                                                             blurRadius:
-                                                            30.0, // shadow blur
+                                                                30.0, // shadow blur
                                                             color: Colors
                                                                 .white, // shadow color
                                                             offset: Offset(0.0,
@@ -143,20 +146,30 @@ class _View_CategoryState extends State<View_Category>
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: BackdropFilter(
-                                        filter:
-                                        ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+                                        filter: ImageFilter.blur(
+                                            sigmaX: 15.0, sigmaY: 15.0),
                                         child: Container(
                                           height: 40,
                                           width: 40,
                                           decoration: BoxDecoration(
-                                              border: Border.all(color: white.withOpacity(.3),width: 1.5),
-                                              borderRadius: BorderRadius.circular(8)
-                                          ),
-                                          child: IconButton(onPressed: (){
-                                            setState(() {
-                                              isFavorite = !isFavorite;
-                                            });
-                                          }, icon: Image(image: AssetImage(isFavorite==true?'assets/images/Favorite.png':'assets/images/Unfavorite.png'),height: 20,)),
+                                              border: Border.all(
+                                                  color: white.withOpacity(.3),
+                                                  width: 1.5),
+                                              borderRadius:
+                                                  BorderRadius.circular(8)),
+                                          child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  isFavorite = !isFavorite;
+                                                });
+                                              },
+                                              icon: Image(
+                                                image: AssetImage(isFavorite ==
+                                                        true
+                                                    ? 'assets/images/Favorite.png'
+                                                    : 'assets/images/Unfavorite.png'),
+                                                height: 20,
+                                              )),
                                         ),
                                       ),
                                     ),
@@ -176,7 +189,7 @@ class _View_CategoryState extends State<View_Category>
           Container(
             height: 80,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Color(0xFF403d59),
             ),
             child: Column(
@@ -211,9 +224,9 @@ class _View_CategoryState extends State<View_Category>
                                 borderRadius: BorderRadius.circular(8),
                                 color: white.withOpacity(.5),
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
+                                  padding: EdgeInsets.all(5.0),
                                   child: Image(
                                     image: AssetImage('assets/images/Tent.png'),
                                   ),

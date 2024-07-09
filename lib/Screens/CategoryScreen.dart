@@ -66,10 +66,10 @@ class _CategoryScreenState extends State<CategoryScreen>
                         child: GridView.builder(
                           itemCount: 4,
                           gridDelegate:
-                          SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              mainAxisSpacing: 20),
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 20),
                           itemBuilder: (context, index) {
                             return InkWell(
                               splashColor: transparent,
@@ -83,7 +83,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
                                   color: white.withOpacity(.2),
-                                  border: Border.all(width: 1.5,color: white.withOpacity(0.2)),
+                                  border: Border.all(
+                                      width: 1.5,
+                                      color: white.withOpacity(0.2)),
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
@@ -108,14 +110,14 @@ class _CategoryScreenState extends State<CategoryScreen>
                                               width: double.infinity,
                                               decoration: BoxDecoration(
                                                   borderRadius:
-                                                  BorderRadius.only(
-                                                      bottomRight: Radius
-                                                          .circular(20),
-                                                      bottomLeft:
-                                                      Radius.circular(
-                                                          20)),
-                                                  color:
-                                                  white.withOpacity(.1)),
+                                                      BorderRadius.only(
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  20),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  20)),
+                                                  color: white.withOpacity(.1)),
                                               child: Center(
                                                 child: Text(
                                                   'Nature',
@@ -123,11 +125,11 @@ class _CategoryScreenState extends State<CategoryScreen>
                                                       color: white,
                                                       fontSize: 14,
                                                       fontWeight:
-                                                      FontWeight.bold,
+                                                          FontWeight.bold,
                                                       shadows: [
                                                         const Shadow(
                                                           blurRadius:
-                                                          30.0, // shadow blur
+                                                              30.0, // shadow blur
                                                           color: Colors
                                                               .white, // shadow color
                                                           offset: Offset(0.0,

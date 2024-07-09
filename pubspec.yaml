@@ -39,6 +39,13 @@ dependencies:
   card_swiper: ^3.0.1
   carousel_slider: ^4.2.1
   linear_timer: ^2.0.0
+  introduction_screen: ^3.1.14
+  hive: ^2.0.3
+  hive_flutter: ^1.0.0
+  http: ^1.2.1
+  get_storage: ^2.1.1
+  firebase_core: ^3.2.0
+  firebase_remote_config: ^5.0.3
 
 dev_dependencies:
   flutter_test:
