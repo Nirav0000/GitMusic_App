@@ -9,10 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hive/hive.dart';
-// import 'package:hive/hive.dart';
 import 'package:linear_timer/linear_timer.dart';
 import 'package:music_app/Constent/Colors.dart';
+import 'package:music_app/Screens/BottomTabBar.dart';
 import 'package:music_app/Screens/ErrorScreen.dart';
 import 'package:music_app/Widget/widgets.dart';
 import '../Model/AppData.dart';
@@ -33,7 +32,6 @@ class _IntroScreenState extends State<IntroScreen>
   bool play_pause = false;
   bool isLoading = false;
   String token = '';
-  final Musicdata = Hive.box('GetMusicData');
   List<Map<String, dynamic>> MusicData = [];
   late LinearTimerController timerController1 = LinearTimerController(this);
   final CarouselController _controller = CarouselController();
@@ -74,7 +72,7 @@ class _IntroScreenState extends State<IntroScreen>
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => BottomAppBar(),
+              builder: (context) => BottomTabBar(),
             ));
       } else if (response.statusCode == 403) {
         Wid_Con.NavigationOff(ErrorScreen(

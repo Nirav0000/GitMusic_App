@@ -18,7 +18,20 @@ class _FavoriteScreenState extends State<FavoriteScreen>
     with TickerProviderStateMixin {
   bool isFavorite = false;
   bool play_pause = false;
+  List musicData = [];
   late LinearTimerController timerController1 = LinearTimerController(this);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   setState(() {
+    //     musicData.addAll(storage.read('FavriteSound') ?? []);
+    //   });
+    //   print('-----fav--> ${musicData[0]}');
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
