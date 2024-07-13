@@ -27,9 +27,10 @@ class _FavoriteScreenState extends State<FavoriteScreen>
     super.initState();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   setState(() {
-    //     musicData.addAll(storage.read('FavriteSound') ?? []);
+    print('-----fav1--> ${storage.read('FavriteSound')}');
+    musicData = storage.read('FavriteSound') ?? [];
     //   });
-    //   print('-----fav--> ${musicData[0]}');
+    print('-----fav--> ${musicData}');
     // });
   }
 

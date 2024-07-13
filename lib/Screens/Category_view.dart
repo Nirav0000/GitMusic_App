@@ -8,7 +8,9 @@ import '../Constent/Colors.dart';
 import '../Widget/widgets.dart';
 
 class View_Category extends StatefulWidget {
-  const View_Category({super.key});
+  const View_Category({super.key, this.cat_data, this.cat_title});
+  final cat_data;
+  final cat_title;
 
   @override
   State<View_Category> createState() => _View_CategoryState();
@@ -18,7 +20,17 @@ class _View_CategoryState extends State<View_Category>
     with TickerProviderStateMixin {
   bool isFavorite = false;
   bool play_pause = false;
+  List itemData = [];
   late LinearTimerController timerController1 = LinearTimerController(this);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    itemData = widget.cat_data;
+    print('---view-->${itemData}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +53,7 @@ class _View_CategoryState extends State<View_Category>
                     padding: const EdgeInsets.only(
                         top: 50, left: 20, right: 20, bottom: 20),
                     child: Text(
-                      'View',
+                      '${widget.cat_title}',
                       style: Wid_Con.Text_Style(
                           color: white,
                           fontSize: 18,
@@ -63,13 +75,14 @@ class _View_CategoryState extends State<View_Category>
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: GridView.builder(
-                          itemCount: 8,
+                          itemCount: itemData.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 20,
                                   mainAxisSpacing: 20),
-                          itemBuilder: (context, index) {
+                          itemBuilder: (context, i) {
+                            final data = itemData[i];
                             return Stack(
                               alignment: Alignment.topCenter,
                               children: [
@@ -82,10 +95,10 @@ class _View_CategoryState extends State<View_Category>
                                     border: Border.all(
                                         width: 1.5,
                                         color: white.withOpacity(0.2)),
-                                    image: const DecorationImage(
+                                    image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            'https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')),
+                                        image:
+                                            NetworkImage('${data['imgUrl']}')),
                                   ),
                                   child: Column(
                                     children: [
@@ -117,7 +130,7 @@ class _View_CategoryState extends State<View_Category>
                                                         white.withOpacity(.1)),
                                                 child: Center(
                                                   child: Text(
-                                                    'Nature',
+                                                    '${data['title']}',
                                                     style: Wid_Con.Text_Style(
                                                         color: white,
                                                         fontSize: 14,

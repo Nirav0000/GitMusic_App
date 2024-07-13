@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:linear_timer/linear_timer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:music_app/Constent/Colors.dart';
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   var categoryData;
   late LinearTimerController timerController1 = LinearTimerController(this);
   final CarouselController _controller = CarouselController();
-
+  final audioPlayer = AudioPlayer();
   @override
   void initState() {
     // TODO: implement initState
@@ -54,31 +54,45 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  // Future<void> saveSelectedItems() async {
-  //   // final prefs = await SharedPreferences.getInstance();
-  //   // const key = 'selected_items';
-  //   // ignore: prefer_null_aware_operators
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     setState(() {
-  //       final value = FevoritsItme.map((item) => item['id']).join(',');
-  //       storage.write("FavriteSound", value);
-  //       print('----favitem--> ${value}');
+  Future<void> saveSelectedItems() async {
+    // final prefs = await SharedPreferences.getInstance();
+    // const key = 'selected_items';
+    // ignore: prefer_null_aware_operators
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        final value = FevoritsItme.map((item) => item['id']).join(',');
+        storage.write("FavriteSound", value);
+        print('----favitem--> ${value}');
 
-  //       loadSelectedItems();
-  //     });
-  //   });
+        loadSelectedItems();
+      });
+    });
 
-  //   // await prefs.setString(key, value);
-  // }
+    // await prefs.setString(key, value);
+  }
 
   Future<void> loadSelectedItems() async {
     if (storage.read('FavriteSound') != null) {
       final value = storage.read('FavriteSound');
       print('-------dzsfdgvzs------> ${storage.read('FavriteSound')}');
       final list = value.split(',').toList();
-      final selectedList =
-          categoryData.where((item) => list.contains(item['id'])).toList();
-      log('------------------>$selectedList');
+      setState(() {});
+      var rValue;
+      var selectedList;
+      for (var i = 0; i < MusicData.length; i++) {
+        selectedList = MusicData[i]['items'].where((item) {
+          for (var ee in item) {
+            setState(() {
+              if (list.contains(ee['id']) == true) {
+                rValue = list.contains(ee['id']);
+              }
+            });
+          }
+          return rValue;
+        }).toList();
+      }
+
+      log('--------selectOBJ---------->$selectedList');
       setState(() {
         FevoritsItme = selectedList ?? [];
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -87,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           });
         });
       });
+      // });
     }
   }
 
@@ -257,8 +272,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     splashColor: transparent,
                                     highlightColor: transparent,
                                     onTap: () async {
-                                      await player.play(
-                                          AssetSource('assets/images/cat.mp3'));
+                                      String url =
+                                          'https://drive.google.com/file/d/1brv-Lc9G54zoqoAzZKJHI0nfyq9xRSkm/view?usp=drive_link';
+                                      // await audioPlayer.setUrl(url);
+                                      await audioPlayer.setAudioSource(
+                                          AudioSource.uri(Uri.parse(
+                                              "https://drive.google.com/file/d/1brv-Lc9G54zoqoAzZKJHI0nfyq9xRSkm/view?usp=drive_link")));
+                                      audioPlayer.play();
                                     },
                                     child: Stack(
                                       alignment: Alignment.topCenter,
@@ -337,74 +357,75 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                             ],
                                           ),
                                         ),
-                                        // Align(
-                                        //   alignment: Alignment.topRight,
-                                        //   child: Padding(
-                                        //     padding: const EdgeInsets.all(8.0),
-                                        //     child: ClipRRect(
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(8),
-                                        //       child: BackdropFilter(
-                                        //         filter: ImageFilter.blur(
-                                        //             sigmaX: 15.0, sigmaY: 15.0),
-                                        //         child: InkWell(
-                                        //           hoverColor: transparent,
-                                        //           splashColor: transparent,
-                                        //           onTap: () {},
-                                        //           child: Container(
-                                        //             height: 40,
-                                        //             width: 40,
-                                        //             decoration: BoxDecoration(
-                                        //                 border: Border.all(
-                                        //                     color: white
-                                        //                         .withOpacity(.3),
-                                        //                     width: 1.5),
-                                        //                 borderRadius:
-                                        //                     BorderRadius.circular(
-                                        //                         8)),
-                                        //             child: IconButton(
-                                        //                 onPressed: () {
-                                        //                   setState(() {
-                                        //                     isFavorite =
-                                        //                         !isFavorite;
-                                        //                   });
-                                        //                   setState(() {
-                                        //                     // provider.toggleFavorite(currentItem);
-                                        //                     if (FevoritsItme
-                                        //                         .contains(
-                                        //                             itemData)) {
-                                        //                       FevoritsItme.remove(
-                                        //                           itemData);
-                                        //                     } else {
-                                        //                       FevoritsItme.add(
-                                        //                           itemData);
-                                        //                     }
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(
+                                                    sigmaX: 15.0, sigmaY: 15.0),
+                                                child: InkWell(
+                                                  hoverColor: transparent,
+                                                  splashColor: transparent,
+                                                  onTap: () {},
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 40,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: white
+                                                                .withOpacity(
+                                                                    .3),
+                                                            width: 1.5),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8)),
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            isFavorite =
+                                                                !isFavorite;
+                                                          });
+                                                          setState(() {
+                                                            // provider.toggleFavorite(currentItem);
+                                                            if (FevoritsItme
+                                                                .contains(
+                                                                    itemData)) {
+                                                              FevoritsItme
+                                                                  .remove(
+                                                                      itemData);
+                                                            } else {
+                                                              FevoritsItme.add(
+                                                                  itemData);
+                                                            }
 
-                                        //                     // saveSelectedItems();
-
-                                        //                   });
-                                        //                 },
-                                        //                 icon: Image(
-                                        //                   image: AssetImage(FevoritsItme
-                                        //                           .contains(
-                                        //                               itemData)
-                                        //                       ? 'assets/images/Favorite.png'
-                                        //                       : 'assets/images/Unfavorite.png'),
-                                        //                   height: 20,
-                                        //                 )),
-                                        //           ),
-                                        //         ),
-                                        //       ),
-                                        //     ),
-                                        //   ),
-                                        // )
-
-                                        Center(
-                                          child: Lottie.asset(
-                                              'assets/lotties/playAnimation.json',
-                                              // height: 20,
-                                              width: 50),
+                                                            saveSelectedItems();
+                                                          });
+                                                        },
+                                                        icon: Image(
+                                                          image: AssetImage(FevoritsItme
+                                                                  .contains(
+                                                                      itemData)
+                                                              ? 'assets/images/Favorite.png'
+                                                              : 'assets/images/Unfavorite.png'),
+                                                          height: 20,
+                                                        )),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         )
+
+                                        // Center(
+                                        //   child: Lottie.asset(
+                                        //       'assets/lotties/playAnimation.json',
+                                        //       // height: 20,
+                                        //       width: 50),
+                                        // )
                                       ],
                                     ),
                                   );
@@ -486,6 +507,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               hoverColor: transparent,
                               onTap: () {
                                 setState(() {
+                                  audioPlayer.stop();
                                   play_pause = !play_pause;
                                   play_pause == true
                                       ? timerController1.start()

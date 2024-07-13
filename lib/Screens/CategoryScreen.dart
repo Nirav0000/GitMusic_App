@@ -20,6 +20,14 @@ class _CategoryScreenState extends State<CategoryScreen>
   bool isFavorite = false;
   bool play_pause = false;
   late LinearTimerController timerController1 = LinearTimerController(this);
+  List<dynamic> MusicData = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    MusicData = storage.read('MusicDataAPI');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +72,25 @@ class _CategoryScreenState extends State<CategoryScreen>
                       child: Padding(
                         padding: EdgeInsets.only(left: 20, right: 20),
                         child: GridView.builder(
-                          itemCount: 4,
+                          itemCount: MusicData.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   crossAxisSpacing: 20,
                                   mainAxisSpacing: 20),
-                          itemBuilder: (context, index) {
+                          itemBuilder: (context, i) {
                             return InkWell(
                               splashColor: transparent,
                               hoverColor: transparent,
                               onTap: () {
-                                Wid_Con.NavigationTo(View_Category());
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => View_Category(
+                                        cat_data: MusicData[i]['items'],
+                                        cat_title: MusicData[i]['title'],
+                                      ),
+                                    ));
                               },
                               child: Container(
                                 height: double.infinity,
@@ -89,7 +104,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
-                                          'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')),
+                                          '${MusicData[i]['items'][0]['imgUrl']}')),
                                 ),
                                 child: Column(
                                   children: [
@@ -120,7 +135,7 @@ class _CategoryScreenState extends State<CategoryScreen>
                                                   color: white.withOpacity(.1)),
                                               child: Center(
                                                 child: Text(
-                                                  'Nature',
+                                                  '${MusicData[i]['title']}',
                                                   style: Wid_Con.Text_Style(
                                                       color: white,
                                                       fontSize: 14,
