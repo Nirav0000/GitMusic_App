@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         final value = FevoritsItme.map((item) => item['id']).join(',');
-        storage.write("FavriteSound", value);
+        storage.write("FavriteSound", value.toString());
         print('----favitem--> ${value}');
 
         loadSelectedItems();
@@ -71,27 +71,72 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // await prefs.setString(key, value);
   }
 
+  List getItemsFromIds(List<String> ids, List categories) {
+    List items = [];
+
+    for (var category in categories) {
+      for (var item in category['items']) {
+        if (ids.contains(item.id)) {
+          items.add(item);
+        }
+      }
+    }
+
+    return items;
+  }
+
   Future<void> loadSelectedItems() async {
+    List value1 = [];
+    List numbersToRemove = [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12'
+    ];
     if (storage.read('FavriteSound') != null) {
       final value = storage.read('FavriteSound');
+      value1.add(storage.read('FavriteSound'));
+
       print('-------dzsfdgvzs------> ${storage.read('FavriteSound')}');
+      print('-------dzsfdgvzssss------> ${value1}');
       final list = value.split(',').toList();
       setState(() {});
       var rValue;
       var selectedList;
-      for (var i = 0; i < MusicData.length; i++) {
-        selectedList = MusicData[i]['items'].where((item) {
-          for (var ee in item) {
-            setState(() {
-              if (list.contains(ee['id']) == true) {
-                rValue = list.contains(ee['id']);
-              }
-            });
-          }
-          return rValue;
-        }).toList();
-      }
+      // for (var i = 0; i < MusicData.length; i++) {
+      selectedList = MusicData.where((item) {
+        List itemdata = [];
 
+        setState(() {
+          itemdata = item['items'];
+        });
+
+        final iitem = itemdata.where((ii) {
+          print('-------iitem------> ${ii}');
+          return list.contains(ii['id']);
+        }).toList();
+        print('-------iitemmmm------> ${iitem}');
+        // for (var ee in item['items']) {
+        //   setState(() {
+        //     if (list.contains(ee['id']) == true) {
+        //       rValue = list.contains(ee['id']);
+        //     }
+        //   });
+        // }
+        return rValue;
+      }).toList();
+      // }
+      // getItemsFromIds(
+      //   [value],
+      // );
       log('--------selectOBJ---------->$selectedList');
       setState(() {
         FevoritsItme = selectedList ?? [];
