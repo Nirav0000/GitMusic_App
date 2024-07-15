@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool isFavorite = false;
   bool play_pause = false;
   bool? isLoading;
+  String itemIndex = 'animal';
   List<dynamic> MusicData = [];
   List FevoritsItme = [];
   var categoryData;
@@ -54,95 +55,77 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<void> saveSelectedItems() async {
+  Future<void> saveSelectedItems(indexName) async {
     // final prefs = await SharedPreferences.getInstance();
     // const key = 'selected_items';
     // ignore: prefer_null_aware_operators
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         final value = FevoritsItme.map((item) => item['id']).join(',');
-        storage.write("FavriteSound", value.toString());
+        if (indexName == 'animal1') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'bird2') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'city3') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'home4') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'nature5') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'night6') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'ocean7') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'rain8') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'relaxing9') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'river10') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'vehicle11') {
+          storage.write(indexName, value.toString());
+        } else if (indexName == 'wind & fire12') {
+          storage.write(indexName, value.toString());
+        }
+        storage.write(indexName, value.toString());
         print('----favitem--> ${value}');
 
-        loadSelectedItems();
+        loadSelectedItems(indexName);
       });
     });
 
     // await prefs.setString(key, value);
   }
 
-  List getItemsFromIds(List<String> ids, List categories) {
-    List items = [];
-
-    for (var category in categories) {
-      for (var item in category['items']) {
-        if (ids.contains(item.id)) {
-          items.add(item);
-        }
-      }
-    }
-
-    return items;
-  }
-
-  Future<void> loadSelectedItems() async {
+  Future<void> loadSelectedItems(indexName) async {
     List value1 = [];
-    List numbersToRemove = [
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      '11',
-      '12'
-    ];
-    if (storage.read('FavriteSound') != null) {
-      final value = storage.read('FavriteSound');
-      value1.add(storage.read('FavriteSound'));
+    if (storage.read(indexName) != null) {
+      final value = storage.read(indexName);
 
       print('-------dzsfdgvzs------> ${storage.read('FavriteSound')}');
-      print('-------dzsfdgvzssss------> ${value1}');
+
       final list = value.split(',').toList();
       setState(() {});
       var rValue;
       var selectedList;
       // for (var i = 0; i < MusicData.length; i++) {
-      selectedList = MusicData.where((item) {
-        List itemdata = [];
+      // selectedList = MusicData.where((item) {
+      List itemdata = [];
 
-        setState(() {
-          itemdata = item['items'];
-        });
-
-        final iitem = itemdata.where((ii) {
-          print('-------iitem------> ${ii}');
-          return list.contains(ii['id']);
-        }).toList();
-        print('-------iitemmmm------> ${iitem}');
-        // for (var ee in item['items']) {
-        //   setState(() {
-        //     if (list.contains(ee['id']) == true) {
-        //       rValue = list.contains(ee['id']);
-        //     }
-        //   });
-        // }
-        return rValue;
-      }).toList();
-      // }
-      // getItemsFromIds(
-      //   [value],
-      // );
-      log('--------selectOBJ---------->$selectedList');
       setState(() {
-        FevoritsItme = selectedList ?? [];
+        itemdata = MusicData[_current]['items'];
+      });
+      // print('-------itemdata------> ${item}');
+      final iitem = itemdata.where((ii) {
+        return list.contains(ii['id']);
+      }).toList();
+      print('-------iitemmmm------> ${iitem}');
+
+      setState(() {
+        FevoritsItme = iitem ?? [];
         WidgetsBinding.instance.addPostFrameCallback((_) {
           setState(() {
-            storage.write('FavriteSound', FevoritsItme);
+            storage.write(categoryData['title'], FevoritsItme);
           });
         });
       });
@@ -201,9 +184,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                               setState(() {
                                 _current = index;
                                 categoryData = MusicData[index];
-
-                                // print('------index---> ${index}');
-                                // print('------index---> ${categoryData}');
+                                itemIndex = categoryData['title'];
+                                print('------index---> ${index}');
+                                print('------index---> ${categoryData}');
                               });
                             },
                           ),
@@ -317,12 +300,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     splashColor: transparent,
                                     highlightColor: transparent,
                                     onTap: () async {
-                                      String url =
-                                          'https://drive.google.com/file/d/1brv-Lc9G54zoqoAzZKJHI0nfyq9xRSkm/view?usp=drive_link';
-                                      // await audioPlayer.setUrl(url);
                                       await audioPlayer.setAudioSource(
-                                          AudioSource.uri(Uri.parse(
-                                              "https://drive.google.com/file/d/1brv-Lc9G54zoqoAzZKJHI0nfyq9xRSkm/view?usp=drive_link")));
+                                          AudioSource.uri(
+                                              Uri.parse("${'audioUrl'}")));
                                       audioPlayer.play();
                                     },
                                     child: Stack(
@@ -447,7 +427,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                                   itemData);
                                                             }
 
-                                                            saveSelectedItems();
+                                                            saveSelectedItems(
+                                                                itemIndex);
                                                           });
                                                         },
                                                         icon: Image(
