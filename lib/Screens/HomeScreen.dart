@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     MusicData = storage.read('MusicDataAPI');
     categoryData = MusicData[0];
+    loadSelectedItems('animal1');
     print('----app----> ${MusicData}');
   }
 
@@ -64,27 +65,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         final value = FevoritsItme.map((item) => item['id']).join(',');
         if (indexName == 'animal1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'bird2') {
+        } else if (indexName == 'bird1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'city3') {
+        } else if (indexName == 'city1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'home4') {
+        } else if (indexName == 'home1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'nature5') {
+        } else if (indexName == 'nature1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'night6') {
+        } else if (indexName == 'night1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'ocean7') {
+        } else if (indexName == 'ocean1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'rain8') {
+        } else if (indexName == 'rain1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'relaxing9') {
+        } else if (indexName == 'relaxing1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'river10') {
+        } else if (indexName == 'river1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'vehicle11') {
+        } else if (indexName == 'vehicle1') {
           storage.write(indexName, value.toString());
-        } else if (indexName == 'wind & fire12') {
+        } else if (indexName == 'wind & fire1') {
           storage.write(indexName, value.toString());
         }
         storage.write(indexName, value.toString());
@@ -301,8 +302,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                     highlightColor: transparent,
                                     onTap: () async {
                                       await audioPlayer.setAudioSource(
-                                          AudioSource.uri(
-                                              Uri.parse("${'audioUrl'}")));
+                                          AudioSource.uri(Uri.parse(
+                                              "${itemData['audioUrl']}")));
                                       audioPlayer.play();
                                     },
                                     child: Stack(
@@ -428,7 +429,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                                             }
 
                                                             saveSelectedItems(
-                                                                itemIndex);
+                                                                '${itemIndex}1');
                                                           });
                                                         },
                                                         icon: Image(
