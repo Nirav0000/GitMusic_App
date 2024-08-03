@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:music_app/Screens/HomeScreen.dart';
+import 'package:music_app/Screens/SettingScreen.dart';
 import '../Constent/Colors.dart';
 import '../Model/AppData.dart';
 import 'CategoryScreen.dart';
@@ -22,7 +23,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
     HomeScreen(),
     FavoriteScreen(),
     CategoryScreen(),
-    CategoryScreen(),
+    SettingScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -31,14 +32,12 @@ class _BottomTabBarState extends State<BottomTabBar> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _widgetOptions[_selectedIndex],
-        bottomNavigationBar: bottombar(),
-        );
+      body: _widgetOptions[_selectedIndex],
+      bottomNavigationBar: bottombar(),
+    );
   }
 
   bottombar() {
