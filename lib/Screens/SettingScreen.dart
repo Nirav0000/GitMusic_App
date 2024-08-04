@@ -2,9 +2,12 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:linear_timer/linear_timer.dart';
 import 'package:music_app/Screens/Category_view.dart';
 import 'package:music_app/Widget/SettingFields.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../Constent/Colors.dart';
 import '../Widget/widgets.dart';
@@ -68,24 +71,47 @@ class _SettingScreenState extends State<SettingScreen>
                   ),
                   SetingFields(
                     name: 'Contact Us',
-                    onPressed: () {},
+                    onPressed: () async {
+                      String email = Uri.encodeComponent("dninfotech16@gmail.com");
+                      String subject =
+                      Uri.encodeComponent("Hello Sir, - Caller App");
+                      String body = Uri.encodeComponent("Hi! ");
+                      print(subject); //output: Hello%20Flutter
+                      Uri mail =
+                      Uri.parse("mailto:$email?subject=$subject&body=$body");
+                      if (await launchUrl(mail)) {
+                      //email app opened
+                      } else {
+                      //email app is not opened
+                      }
+                    },
                   ),
                   SetingFields(
                     name: 'Privacy Policy',
-                    onPressed: () {},
+                    onPressed: () async {
+                      await launchUrl(Uri.parse('https://www.termsfeed.com/live/f9805160-fc5b-425a-8c37-9889ec39dd1c'));
+                    },
                   ),
                   SetingFields(
                     name: 'Rate Us',
-                    onPressed: () {},
+                    onPressed: () {
+                      LaunchReview.launch(androidAppId: "com.example.music_app");
+                    },
                   ),
                   SetingFields(
                     name: 'Share Us',
-                    onPressed: () {},
+                    onPressed: () {
+                      FlutterShare.share(
+                          linkUrl:
+                          "https://play.google.com/store/apps/details?id=com.example.music_app",
+                          title: 'Caller App');
+                    },
                   ),
                   SetingFields(
                     name: 'App Version',
                     onPressed: () {},
                     isVersion: true,
+                    version: '1.0.1',
                   ),
                 ],
               ),

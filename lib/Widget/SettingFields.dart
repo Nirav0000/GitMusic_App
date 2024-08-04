@@ -6,10 +6,11 @@ import 'package:music_app/Constent/Colors.dart';
 import 'package:music_app/Widget/widgets.dart';
 
 class SetingFields extends StatelessWidget {
-  SetingFields({super.key, this.name, this.onPressed, this.isVersion});
+  SetingFields({super.key, this.name, this.onPressed, this.isVersion, this.version});
   final name;
   VoidCallback? onPressed;
   final isVersion;
+  final version;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class SetingFields extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.only(top: 5, left: 15),
                                   child: Text(
-                                    '1.0.1',
+                                    '$version',
                                     style: Wid_Con.Text_Style(
                                         color: white,
                                         fontSize: 10,
