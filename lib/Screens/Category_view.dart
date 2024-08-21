@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:linear_timer/linear_timer.dart';
+import 'package:music_app/Widget/PlayAudio.dart';
 
 import '../Constent/Colors.dart';
 import '../Widget/widgets.dart';
@@ -52,20 +53,38 @@ class _View_CategoryState extends State<View_Category>
                   Padding(
                     padding: const EdgeInsets.only(
                         top: 50, left: 20, right: 20, bottom: 20),
-                    child: Text(
-                      '${widget.cat_title}',
-                      style: Wid_Con.Text_Style(
-                          color: white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          shadows: [
-                            const Shadow(
-                              blurRadius: 30.0, // shadow blur
-                              color: Colors.white, // shadow color
-                              offset: Offset(
-                                  0.0, 0.0), // how much shadow will be shown
-                            ),
-                          ]),
+                    child: Row(
+                      children: [
+                        InkWell(
+                          hoverColor: transparent,
+                          splashColor: transparent,
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: white,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Text(
+                            '${widget.cat_title}',
+                            style: Wid_Con.Text_Style(
+                                color: white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                shadows: [
+                                  const Shadow(
+                                    blurRadius: 30.0, // shadow blur
+                                    color: Colors.white, // shadow color
+                                    offset: Offset(0.0,
+                                        0.0), // how much shadow will be shown
+                                  ),
+                                ]),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Expanded(
@@ -199,101 +218,7 @@ class _View_CategoryState extends State<View_Category>
               ),
             ),
           ),
-          Container(
-            height: 80,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Color(0xFF403d59),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LinearTimer(
-                  duration: const Duration(seconds: 5),
-                  color: timerline,
-                  backgroundColor: themeColor,
-                  controller: timerController1,
-                  minHeight: 4,
-                  onTimerEnd: () {
-                    setState(() {
-                      play_pause = false;
-                      timerController1.reset();
-                    });
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Container(
-                              height: 55,
-                              width: 55,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: white.withOpacity(.5),
-                              ),
-                              child: const Center(
-                                child: Padding(
-                                  padding: EdgeInsets.all(5.0),
-                                  child: Image(
-                                    image: AssetImage('assets/images/Tent.png'),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Text(
-                              'Nature',
-                              style: Wid_Con.Text_Style(
-                                  color: white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  shadows: [
-                                    const Shadow(
-                                      blurRadius: 30.0, // shadow blur
-                                      color: Colors.white, // shadow color
-                                      offset: Offset(0.0,
-                                          0.0), // how much shadow will be shown
-                                    ),
-                                  ]),
-                            ),
-                          ),
-                        ],
-                      ),
-                      InkWell(
-                        splashColor: transparent,
-                        hoverColor: transparent,
-                        onTap: () {
-                          setState(() {
-                            play_pause = !play_pause;
-                            play_pause == true
-                                ? timerController1.start()
-                                : timerController1.stop();
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: Image(
-                            image: AssetImage(play_pause == true
-                                ? 'assets/images/play.png'
-                                : 'assets/images/pause.png'),
-                            height: 55,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          PlayAudio(),
         ],
       ),
     );

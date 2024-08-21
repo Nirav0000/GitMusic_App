@@ -12,6 +12,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:linear_timer/linear_timer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:music_app/Constent/Colors.dart';
+import 'package:music_app/Widget/PlayAudio.dart';
 import 'package:music_app/Widget/widgets.dart';
 import '../Model/AppData.dart';
 import '../main.dart';
@@ -465,98 +466,98 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Container(
-                  height: 65,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF403d59),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      LinearTimer(
-                        duration: const Duration(seconds: 5),
-                        color: timerline,
-                        backgroundColor: themeColor,
-                        controller: timerController1,
-                        minHeight: 4,
-                        onTimerEnd: () {
-                          setState(() {
-                            play_pause = false;
-                            timerController1.reset();
-                          });
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Container(
-                                    height: 40,
-                                    width: 40,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: white.withOpacity(.5),
-                                        image: const DecorationImage(
-                                          image: NetworkImage(
-                                              'https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Text(
-                                    'Nature',
-                                    style: Wid_Con.Text_Style(
-                                        color: white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        shadows: [
-                                          const Shadow(
-                                            blurRadius: 30.0, // shadow blur
-                                            color: Colors.white, // shadow color
-                                            offset: Offset(0.0,
-                                                0.0), // how much shadow will be shown
-                                          ),
-                                        ]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            InkWell(
-                              splashColor: transparent,
-                              hoverColor: transparent,
-                              onTap: () {
-                                setState(() {
-                                  audioPlayer.stop();
-                                  play_pause = !play_pause;
-                                  play_pause == true
-                                      ? timerController1.start()
-                                      : timerController1.stop();
-                                });
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: Image(
-                                  image: AssetImage(play_pause == true
-                                      ? 'assets/images/play.png'
-                                      : 'assets/images/pause.png'),
-                                  height: 40,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                PlayAudio(), // Container(
+                //   height: 65,
+                //   width: double.infinity,
+                //   decoration: const BoxDecoration(
+                //     color: Color(0xFF403d59),
+                //   ),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       LinearTimer(
+                //         duration: const Duration(seconds: 5),
+                //         color: timerline,
+                //         backgroundColor: themeColor,
+                //         controller: timerController1,
+                //         minHeight: 4,
+                //         onTimerEnd: () {
+                //           setState(() {
+                //             play_pause = false;
+                //             timerController1.reset();
+                //           });
+                //         },
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.only(bottom: 10),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Row(
+                //               children: [
+                //                 Padding(
+                //                   padding: const EdgeInsets.only(left: 15),
+                //                   child: Container(
+                //                     height: 40,
+                //                     width: 40,
+                //                     decoration: BoxDecoration(
+                //                         borderRadius: BorderRadius.circular(8),
+                //                         color: white.withOpacity(.5),
+                //                         image: const DecorationImage(
+                //                           image: NetworkImage(
+                //                               'https://images.pexels.com/photos/1033729/pexels-photo-1033729.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                //                           fit: BoxFit.cover,
+                //                         )),
+                //                   ),
+                //                 ),
+                //                 Padding(
+                //                   padding: const EdgeInsets.only(left: 15),
+                //                   child: Text(
+                //                     'Nature',
+                //                     style: Wid_Con.Text_Style(
+                //                         color: white,
+                //                         fontSize: 14,
+                //                         fontWeight: FontWeight.bold,
+                //                         shadows: [
+                //                           const Shadow(
+                //                             blurRadius: 30.0, // shadow blur
+                //                             color: Colors.white, // shadow color
+                //                             offset: Offset(0.0,
+                //                                 0.0), // how much shadow will be shown
+                //                           ),
+                //                         ]),
+                //                   ),
+                //                 ),
+                //               ],
+                //             ),
+                //             InkWell(
+                //               splashColor: transparent,
+                //               hoverColor: transparent,
+                //               onTap: () {
+                //                 setState(() {
+                //                   audioPlayer.stop();
+                //                   play_pause = !play_pause;
+                //                   play_pause == true
+                //                       ? timerController1.start()
+                //                       : timerController1.stop();
+                //                 });
+                //               },
+                //               child: Padding(
+                //                 padding: const EdgeInsets.only(right: 15),
+                //                 child: Image(
+                //                   image: AssetImage(play_pause == true
+                //                       ? 'assets/images/play.png'
+                //                       : 'assets/images/pause.png'),
+                //                   height: 40,
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             )
           : Center(

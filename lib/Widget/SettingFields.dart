@@ -6,7 +6,8 @@ import 'package:music_app/Constent/Colors.dart';
 import 'package:music_app/Widget/widgets.dart';
 
 class SetingFields extends StatelessWidget {
-  SetingFields({super.key, this.name, this.onPressed, this.isVersion, this.version});
+  SetingFields(
+      {super.key, this.name, this.onPressed, this.isVersion, this.version});
   final name;
   VoidCallback? onPressed;
   final isVersion;
@@ -25,12 +26,12 @@ class SetingFields extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: white.withOpacity(.2),
-          border: Border.all(width: 1.5, color: white.withOpacity(0.2)),
+          // border: Border.all(width: 1.5, color: white.withOpacity(0.2)),
         ),
         child: Transform.translate(
           offset: Offset(8, 8),
           child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(18),
               child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                   child: Container(
@@ -67,6 +68,7 @@ class SetingFields extends StatelessWidget {
                                         ]),
                                   ),
                                 ),
+                                isVersion != true?
                                 Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: Icon(
@@ -74,7 +76,7 @@ class SetingFields extends StatelessWidget {
                                     color: white,
                                     size: 30,
                                   ),
-                                )
+                                ):Spacer(),
                               ]),
                           isVersion == true
                               ? Padding(
