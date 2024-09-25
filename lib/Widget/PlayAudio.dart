@@ -7,7 +7,8 @@ import 'package:music_app/DialogBox/TimerDialog.dart';
 import 'package:music_app/Widget/widgets.dart';
 
 class PlayAudio extends StatefulWidget {
-  const PlayAudio({super.key});
+  const PlayAudio({super.key, this.onPressedPlayPause});
+  final VoidCallback? onPressedPlayPause;
 
   @override
   State<PlayAudio> createState() => _PlayAudioState();
@@ -240,16 +241,7 @@ class _PlayAudioState extends State<PlayAudio> with TickerProviderStateMixin {
                     InkWell(
                       splashColor: transparent,
                       hoverColor: transparent,
-                      onTap: () {
-                        setState(() {
-                          // timerController1.start();
-                          audioPlayer.stop();
-                          play_pause = !play_pause;
-                          play_pause == true
-                              ? timerController1.start()
-                              : timerController1.stop();
-                        });
-                      },
+                      onTap: widget.onPressedPlayPause,
                       child: Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: Image(

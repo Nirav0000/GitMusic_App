@@ -187,8 +187,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                                 _current = index;
                                 categoryData = MusicData[index];
                                 itemIndex = categoryData['title'];
-                                print('------index---> ${index}');
+                                print('------index---> ${itemIndex}');
                                 print('------index---> ${categoryData}');
+                                loadSelectedItems('${itemIndex}1');
                               });
                             },
                           ),
@@ -466,7 +467,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                PlayAudio(), // Container(
+                PlayAudio(
+                  onPressedPlayPause: () {
+                  setState(() {
+                    // timerController1.start();
+                    audioPlayer.stop();
+                    play_pause = !play_pause;
+                    play_pause == true
+                        ? timerController1.start()
+                        : timerController1.stop();
+                  });
+                },), // Container(
                 //   height: 65,
                 //   width: double.infinity,
                 //   decoration: const BoxDecoration(
